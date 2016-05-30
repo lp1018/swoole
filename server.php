@@ -24,6 +24,7 @@ class Server
         $this->serv->on('Start', array($this, 'onStart'));
         $this->serv->on('Connect', array($this, 'onConnect'));
         $this->serv->on('Receive', array($this, 'onReceive'));
+        $this->serv->on('Send', array($this, 'onSend'));
         $this->serv->on('Close', array($this, 'onClose'));
 
         $this->serv->start();
@@ -39,6 +40,10 @@ class Server
 
     public function onReceive( swoole_server $serv, $fd, $from_id, $data ) {
         echo "Get Message From Client {$fd}:{$data}\n";
+    }
+
+    public function onSend($fd,$data){
+        echo "fd is{$fd},data is{$data},hahhhhhhhh";
     }
 
     public function onClose( $serv, $fd, $from_id ) {
