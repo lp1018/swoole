@@ -32,6 +32,7 @@ class Server
 
     public function onStart( $serv ) {
         echo "Start\n";
+        $serv->send('hahaha');
     }
 
     public function onConnect( $serv, $fd, $from_id ) {
@@ -42,9 +43,9 @@ class Server
         echo "Get Message From Client {$fd}:{$data}\n";
     }
 
-    public function onSend($fd,$data){
-        echo "fd is{$fd},data is{$data},hahhhhhhhh";
-    }
+//    public function onSend($fd,$data){
+//        echo "fd is{$fd},data is{$data},hahhhhhhhh";
+//    }
 
     public function onClose( $serv, $fd, $from_id ) {
         echo "Client {$fd} close connection\n";
