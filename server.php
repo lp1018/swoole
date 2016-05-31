@@ -5,10 +5,8 @@
  * Date: 2016/5/27
  * Time: 14:51
  */
-
 // Server
-class Server
-{
+class Server {
     private $serv;
 
     public function __construct() {
@@ -18,7 +16,7 @@ class Server
             'daemonize' => false,
             'max_request' => 10000,
             'dispatch_mode' => 2,
-            'debug_mode'=> 1
+            'debug_mode' => 1
         ));
 
         $this->serv->on('Start', array($this, 'onStart'));
@@ -30,16 +28,16 @@ class Server
         $this->serv->start();
     }
 
-    public function onStart( $serv ) {
+    public function onStart($serv, $fd) {
         echo "Start\n";
-        $serv->send('hahaha');
+        $serv->send($fd, 'hahaha');
     }
 
-    public function onConnect( $serv, $fd, $from_id ) {
-        $serv->send( $fd, "Hello {$fd}!" );
+    public function onConnect($serv, $fd, $from_id) {
+        $serv->send($fd, "Hello {$fd}!");
     }
 
-    public function onReceive( swoole_server $serv, $fd, $from_id, $data ) {
+    public function onReceive(swoole_server $serv, $fd, $from_id, $data) {
         echo "Get Message From Client {$fd}:{$data}\n";
     }
 
@@ -47,9 +45,10 @@ class Server
 //        echo "fd is{$fd},data is{$data},hahhhhhhhh";
 //    }
 
-    public function onClose( $serv, $fd, $from_id ) {
+    public function onClose($serv, $fd, $from_id) {
         echo "Client {$fd} close connection\n";
     }
 }
+
 // 启动服务器
 $server = new Server();
