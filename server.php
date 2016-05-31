@@ -28,9 +28,8 @@ class Server {
         $this->serv->start();
     }
 
-    public function onStart($serv, $fd) {
+    public function onStart($serv) {
         echo "Start\n";
-        $serv->send($fd, 'hahaha');
     }
 
     public function onConnect($serv, $fd, $from_id) {
@@ -39,6 +38,7 @@ class Server {
 
     public function onReceive(swoole_server $serv, $fd, $from_id, $data) {
         echo "Get Message From Client {$fd}:{$data}\n";
+        $serv->send($fd,'2333333333333');
     }
 
 //    public function onSend($fd,$data){
